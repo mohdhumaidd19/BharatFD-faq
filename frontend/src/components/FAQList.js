@@ -10,14 +10,15 @@ const FAQList = () => {
   useEffect(() => {
     const fetchFAQs = async () => {
       try {
-        const response = await getFAQs(language);
-        setFaqs(response.data || []); 
+        const faqsData = await getFAQs(language);
+        setFaqs(faqsData || []);  
       } catch (error) {
         alert('Error fetching FAQs');
       }
     };
     fetchFAQs();
   }, [language]);
+  
 
   const handleLanguageChange = (newLang) => {
     setLanguage(newLang);

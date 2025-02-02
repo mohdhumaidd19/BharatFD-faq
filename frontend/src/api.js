@@ -7,6 +7,7 @@ const api = axios.create({
 export const getFAQs = async (lang = 'en') => {
   try {
     const response = await api.get(`/faqs?lang=${lang}`);  
+    console.log(response.data )
     return response.data;
   } catch (error) {
     console.error("Error fetching FAQs:", error.response?.data || error.message);
