@@ -2,16 +2,10 @@ import { Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
   class FAQ extends Model {
-    /**
-     * Helper method to get the question in a specific language.
-     */
     getTranslatedQuestion(lang) {
-      return this[`question_${lang}`] || this.question; // Fallback to English
+      return this[`question_${lang}`] || this.question;
     }
 
-    static associate(models) {
-      // Define associations if needed in the future
-    }
   }
 
   FAQ.init(
@@ -19,6 +13,9 @@ export default (sequelize, DataTypes) => {
       question: DataTypes.STRING,
       question_hi: DataTypes.STRING,
       question_bn: DataTypes.STRING,
+      question_ta: DataTypes.STRING,
+      question_mr: DataTypes.STRING,
+      question_gu: DataTypes.STRING,
       answer: DataTypes.STRING,
     },
     {

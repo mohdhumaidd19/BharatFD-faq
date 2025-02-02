@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import './FAQList.css';
 
 const FAQList = () => {
-  const [faqs, setFaqs] = useState([]);
+  const [faqs, setFaqs] = useState([]); 
   const [language, setLanguage] = useState('en'); 
 
   useEffect(() => {
     const fetchFAQs = async () => {
       try {
         const response = await getFAQs(language);
-        setFaqs(response.data);
+        setFaqs(response.data || []); 
       } catch (error) {
         alert('Error fetching FAQs');
       }
@@ -27,21 +27,21 @@ const FAQList = () => {
     <div className="faq-list-container">
       <h2 className="faq-list-heading">FAQ List</h2>
 
-      {/* Language Selection Buttons */}
       <div className="language-selector">
         <button onClick={() => handleLanguageChange('en')}>English</button>
         <button onClick={() => handleLanguageChange('hi')}>Hindi</button>
         <button onClick={() => handleLanguageChange('bn')}>Bengali</button>
+        <button onClick={() => handleLanguageChange('ta')}>Tamil</button>
+        <button onClick={() => handleLanguageChange('mr')}>Marathi</button>
+        <button onClick={() => handleLanguageChange('gu')}>Gujrati</button>
       </div>
 
-      {/* Add Question Button */}
       <div className="add-question-btn">
         <Link to="/add-faq">
           <button className="add-faq-btn">Add a Question</button>
         </Link>
       </div>
 
-      {/* FAQ Table */}
       <table className="faq-table">
         <thead>
           <tr>
@@ -50,12 +50,18 @@ const FAQList = () => {
           </tr>
         </thead>
         <tbody>
-          {faqs.map((faq) => (
-            <tr key={faq.id}>
-              <td>{faq.question}</td>
-              <td>{faq.answer}</td>
+        {faqs.length === 0 ? (
+            <tr>
+              <td colSpan="2">No FAQs available.</td>
             </tr>
-          ))}
+          ) : (
+            faqs.map((faq, index) => (
+              <tr key={faq.id || index}> 
+                <td>{faq.question}</td>
+                <td>{faq.answer}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
